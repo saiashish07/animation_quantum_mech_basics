@@ -1,0 +1,8 @@
+# This file is used internally by FFMPEG.
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/1307454215_1056964451_223132457.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_2668631461_2938742867.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_3442517256_1997813539.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_2681403456_801362863.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_84013994_4260010780.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_448457647_256268747.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/basis_superposition/480p15/partial_movie_files/SuperpositionScene/28472987_3460650602_890262815.mp4'

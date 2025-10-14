@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/wavefunction_evolution/480p15/partial_movie_files/WavefunctionEvolutionScene/1307454215_4278760806_223132457.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/wavefunction_evolution/480p15/partial_movie_files/WavefunctionEvolutionScene/28472987_312670374_682855786.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/wavefunction_evolution/480p15/partial_movie_files/WavefunctionEvolutionScene/28472987_1600839176_2051116004.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/wavefunction_evolution/480p15/partial_movie_files/WavefunctionEvolutionScene/28472987_1642643559_2409236570.mp4'
+file 'file:/workspaces/animation_quantum_mech_basics/media/videos/wavefunction_evolution/480p15/partial_movie_files/WavefunctionEvolutionScene/28472987_3891741888_317340660.mp4'
