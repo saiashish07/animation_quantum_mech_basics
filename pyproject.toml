@@ -13,10 +13,12 @@ authors = [
   { name = "Animation Quantum Mechanics Team" }
 ]
 dependencies = [
-  "manim>=0.18,<0.19",
+  "manim>=0.18",
   "numpy>=1.23",
   "scipy>=1.10",
-  "sympy>=1.11"
+  "sympy>=1.11",
+  "qutip>=5.0",
+  "qmsolve>=2.0"
 ]
 
 [project.optional-dependencies]

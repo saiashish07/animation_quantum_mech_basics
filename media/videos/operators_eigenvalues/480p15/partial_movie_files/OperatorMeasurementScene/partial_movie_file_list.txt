@@ -1,8 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/1307454215_2222356088_223132457.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_1672567230_3309195345.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_3947342778_1497990807.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_987899045_3873204784.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_2204874818_2329935481.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_2354374403_1277346694.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/operators_eigenvalues/480p15/partial_movie_files/OperatorMeasurementScene/28472987_3225032315_1579447336.mp4'

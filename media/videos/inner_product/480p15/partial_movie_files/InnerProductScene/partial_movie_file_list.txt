@@ -1,9 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/1307454215_3621020999_223132457.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_1038838556_2255470305.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_1089872971_1071554307.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_2354374403_2461697476.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_3061415415_2351666259.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_3320416129_1318751473.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_2354374403_2661542602.mp4'
-file 'file:/workspaces/animation_quantum_mech_basics/media/videos/inner_product/480p15/partial_movie_files/InnerProductScene/28472987_1283182649_2696247723.mp4'
