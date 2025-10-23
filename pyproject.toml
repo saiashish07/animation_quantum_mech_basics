@@ -1,35 +1,27 @@
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=45", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "quantum-animation"
+name = "quantum-playground"
 version = "0.1.0"
-description = "Introductory quantum mechanics animations built with Manim."
-readme = "README.md"
-requires-python = ">=3.10"
-license = { file = "LICENSE" }
-authors = [
-  { name = "Animation Quantum Mechanics Team" }
-]
+description = "Interactive quantum mechanics simulations: infinite well, finite well, harmonic oscillator, and tunneling"
+requires-python = ">=3.9"
+authors = [{name = "Quantum Playground", email = "contact@example.com"}]
+
 dependencies = [
-  "manim>=0.18",
-  "numpy>=1.23",
-  "scipy>=1.10",
-  "sympy>=1.11",
-  "qutip>=5.0",
-  "qmsolve>=2.0"
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.4.0",
+    "ipywidgets>=7.6.0",
+    "jupyterlab>=3.0.0",
+    "ipykernel>=6.0.0",
 ]
 
 [project.optional-dependencies]
-visualization = [
-  "matplotlib>=3.8",
-  "vpython>=7.6"
-]
-quantum = [
-  "qutip>=5.0",
-  "qmsolve>=2.0"
-]
+dev = ["pytest>=6.0", "black>=21.0", "pylint>=2.9"]
+performance = ["numba>=0.54.0"]
+animation = ["manim>=0.15.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
