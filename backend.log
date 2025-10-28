@@ -1,0 +1,36 @@
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 126-641-541
+Exception in thread Thread-1 (run_server):
+Traceback (most recent call last):
+  File "/home/codespace/.python/current/lib/python3.12/threading.py", lin127.0.0.1 - - [2025-10-28 08:59:51] "GET /api/health HTTP/1.1" 200 261 0.000536
+ * Detected change in '/workspaces/animation_quantum_mech_basics/app/backend/app/api/enhanced_api.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 126-641-541
+Exception in thread Thread-1 (run_server):
+Traceback (most recent call last):
+  File "/home/codespace/.python/current/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/home/codespace/.python/current/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 722, in run_server
+    self.wsgi_server.serve_forever()
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/baseserver.py", line 401, in serve_forever
+    self.start()
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/baseserver.py", line 339, in start
+    self.init_socket()
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/pywsgi.py", line 1672, in init_socket
+    StreamServer.init_socket(self)
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/server.py", line 173, in init_socket
+    self.socket = self.get_listener(self.address, self.backlog, self.family)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/server.py", line 185, in get_listener
+    return _tcp_listener(address, backlog=backlog, reuse_addr=cls.reuse_addr, family=family)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/server.py", line 264, in _tcp_listener
+    sock.bind(address)
+  File "/workspaces/animation_quantum_mech_basics/.venv/lib/python3.12/site-packages/gevent/_socketcommon.py", line 543, in bind
+    return self._sock.bind(address)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 98] Address already in use: ('0.0.0.0', 5000)

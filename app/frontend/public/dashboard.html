@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Mechanics Simulator - Enhanced Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>🌌 Quantum Mechanics Simulator</h1>
+                <div class="header-info">
+                    <span id="connectionStatus" class="status disconnected">Disconnected</span>
+                    <span id="serverStatus" class="status">Server: Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar: Controls -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>📊 Simulation</h3>
+                    <select id="simulationType" class="control-input">
+                        <option value="infinite-well">Infinite Square Well</option>
+                        <option value="finite-well">Finite Square Well</option>
+                        <option value="tunneling">Quantum Tunneling</option>
+                        <option value="harmonic">Harmonic Oscillator</option>
+                    </select>
+                </div>
+
+                <!-- Infinite Well Controls -->
+                <div id="infinite-well-controls" class="control-group">
+                    <h4>Well Configuration</h4>
+                    <label>Width: <span id="widthValue">5.0</span></label>
+                    <input type="range" id="wellWidth" min="1" max="10" step="0.5" value="5.0" class="control-slider">
+                    <label>States: <span id="statesValue">5</span></label>
+                    <input type="range" id="numStates" min="1" max="20" step="1" value="5" class="control-slider">
+                </div>
+
+                <!-- Finite Well Controls -->
+                <div id="finite-well-controls" class="control-group" style="display:none;">
+                    <h4>Well Configuration</h4>
+                    <label>Width: <span id="finiteWidthValue">5.0</span></label>
+                    <input type="range" id="finiteWidth" min="1" max="10" step="0.5" value="5.0" class="control-slider">
+                    <label>Depth: <span id="depthValue">50</span></label>
+                    <input type="range" id="wellDepth" min="10" max="200" step="10" value="50" class="control-slider">
+                    <label>States: <span id="finiteStatesValue">5</span></label>
+                    <input type="range" id="finiteNumStates" min="1" max="15" step="1" value="5" class="control-slider">
+                </div>
+
+                <!-- Tunneling Controls -->
+                <div id="tunneling-controls" class="control-group" style="display:none;">
+                    <h4>Barrier Configuration</h4>
+                    <label>Barrier Height: <span id="barrierHeightValue">30</span></label>
+                    <input type="range" id="barrierHeight" min="10" max="100" step="5" value="30" class="control-slider">
+                    <label>Width: <span id="barrierWidthValue">2</span></label>
+                    <input type="range" id="barrierWidth" min="0.5" max="5" step="0.5" value="2" class="control-slider">
+                    <label>Particle Energy: <span id="particleEnergyValue">20</span></label>
+                    <input type="range" id="particleEnergy" min="5" max="80" step="1" value="20" class="control-slider">
+                </div>
+
+                <!-- Harmonic Controls -->
+                <div id="harmonic-controls" class="control-group" style="display:none;">
+                    <h4>Oscillator Configuration</h4>
+                    <label>Frequency (ω): <span id="omegaValue">1.0</span></label>
+                    <input type="range" id="omega" min="0.5" max="3.0" step="0.1" value="1.0" class="control-slider">
+                    <label>States: <span id="harmonicStatesValue">5</span></label>
+                    <input type="range" id="harmonicNumStates" min="1" max="15" step="1" value="5" class="control-slider">
+                </div>
+
+                <button id="runSimulation" class="btn-primary">▶ Run Simulation</button>
+
+                <!-- Visualization Options -->
+                <div class="sidebar-section">
+                    <h3>🎨 Visualization</h3>
+                    <label class="checkbox">
+                        <input type="checkbox" id="showEnergyLevels" checked> Energy Levels
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" id="showProbability" checked> Probability
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" id="showWavefunction" checked> Wavefunction
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" id="showStatistics" checked> Statistics
+                    </label>
+                </div>
+
+                <!-- WebSocket Control -->
+                <div class="sidebar-section">
+                    <h3>⚡ Real-time</h3>
+                    <label class="checkbox">
+                        <input type="checkbox" id="enableLiveUpdates"> Enable Live Updates
+                    </label>
+                    <button id="connectWebSocket" class="btn-secondary">Connect WebSocket</button>
+                </div>
+
+                <!-- Webhooks -->
+                <div class="sidebar-section">
+                    <h3>🔗 Webhooks</h3>
+                    <input type="text" id="webhookUrl" placeholder="Webhook URL" class="control-input" style="font-size:10px;">
+                    <select id="webhookEvent" class="control-input">
+                        <option value="simulation.complete">On Complete</option>
+                        <option value="energy.calculated">On Energy</option>
+                        <option value="tunneling.started">On Tunneling</option>
+                    </select>
+                    <button id="registerWebhook" class="btn-secondary">Register</button>
+                    <div id="webhookList" style="max-height:150px; overflow-y:auto; font-size:11px;"></div>
+                </div>
+            </aside>
+
+            <!-- Main Visualization Area -->
+            <div class="visualization-area">
+                <!-- Status Panel -->
+                <div id="statusPanel" class="status-panel">
+                    <div class="status-item">
+                        <span class="status-label">Status:</span>
+                        <span id="status" class="status-value">Ready</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Last Updated:</span>
+                        <span id="lastUpdated" class="status-value">Never</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Ground State Energy:</span>
+                        <span id="groundStateEnergy" class="status-value">—</span>
+                    </div>
+                </div>
+
+                <!-- Canvas Container for Visualizations -->
+                <div class="canvas-grid">
+                    <!-- Energy Levels -->
+                    <div class="canvas-item" id="energyLevelsContainer">
+                        <div class="canvas-header">Energy Levels</div>
+                        <canvas id="energyLevelsCanvas"></canvas>
+                    </div>
+
+                    <!-- Probability Density -->
+                    <div class="canvas-item" id="probabilityContainer">
+                        <div class="canvas-header">Probability Density |ψ|²</div>
+                        <canvas id="probabilityCanvas"></canvas>
+                    </div>
+
+                    <!-- Wavefunction (using Three.js) -->
+                    <div class="canvas-item" id="wavefunctionContainer">
+                        <div class="canvas-header">Wavefunction (3D Visualization)</div>
+                        <canvas id="wavefunctionCanvas"></canvas>
+                    </div>
+
+                    <!-- Statistics Panel -->
+                    <div class="canvas-item" id="statisticsContainer">
+                        <div class="canvas-header">Quantum Statistics</div>
+                        <div id="statisticsPanel" class="statistics-panel"></div>
+                    </div>
+                </div>
+
+                <!-- Detailed Visualization Section -->
+                <div class="detailed-section">
+                    <div class="section-header">
+                        <h3>📈 Detailed Analysis</h3>
+                        <div class="section-controls">
+                            <button id="toggleComparison" class="btn-secondary">Numerical vs Analytical</button>
+                            <button id="toggleTrajectory" class="btn-secondary">Time Evolution</button>
+                        </div>
+                    </div>
+                    <div id="detailedContent" class="detailed-content">
+                        <canvas id="detailedCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <span>Powered by Python SciPy + Three.js WebGL + Socket.IO</span>
+                <span id="performanceMetrics">FPS: — | API: —ms</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="api-service.js"></script>
+    <script src="websocket-service.js"></script>
+    <script src="state-manager.js"></script>
+    <script src="energy-levels.js"></script>
+    <script src="probability-density.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
