@@ -1,0 +1,31 @@
+{
+  "name": "quantum-simulator-web",
+  "version": "1.0.0",
+  "description": "Interactive WebGL-based quantum mechanics simulator",
+  "scripts": {
+    "start": "python -m http.server 8080 --directory web/public",
+    "dev": "concurrently \"npm run api\" \"npm run web\"",
+    "api": "cd api && python quantum_api.py",
+    "web": "python -m http.server 8080 --directory web/public",
+    "build-wasm": "cd cpp && emcc quantum_wasm.cpp -o quantum.js -s WASM=1",
+    "format": "prettier --write 'web/src/**/*.js'",
+    "lint": "eslint web/src/**/*.js"
+  },
+  "keywords": [
+    "quantum",
+    "mechanics",
+    "simulator",
+    "webgl",
+    "visualization",
+    "three.js",
+    "physics"
+  ],
+  "author": "Quantum Playground",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0",
+    "concurrently": "^8.0.0"
+  },
+  "dependencies": {}
+}

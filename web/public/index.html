@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Mechanics Interactive Simulator</title>
+    <link rel="stylesheet" href="../src/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔬 Quantum Mechanics Interactive Simulator</h1>
+            <p>Explore quantum phenomena with real-time WebGL visualizations</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="simulation-nav">
+                    <div class="nav-section">
+                        <h3>Simulations</h3>
+                        <button class="nav-btn active" data-simulation="infinite-well">
+                            Infinite Square Well
+                        </button>
+                        <button class="nav-btn" data-simulation="finite-well">
+                            Finite Square Well
+                        </button>
+                        <button class="nav-btn" data-simulation="tunneling">
+                            Quantum Tunneling
+                        </button>
+                        <button class="nav-btn" data-simulation="harmonic">
+                            Harmonic Oscillator
+                        </button>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Visualization Area -->
+            <main class="main-area">
+                <!-- WebGL Canvas -->
+                <div class="canvas-container">
+                    <canvas id="webgl-canvas"></canvas>
+                    <div class="canvas-overlay">
+                        <div class="loading-indicator" id="loading">
+                            <div class="spinner"></div>
+                            <p>Initializing simulation...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel">
+                    <div class="panel-header">
+                        <h3 id="simulation-title">Infinite Square Well</h3>
+                        <button class="panel-close" onclick="toggleControlPanel()">×</button>
+                    </div>
+                    
+                    <div class="panel-content">
+                        <!-- Infinite Well Controls -->
+                        <div class="control-group" id="infinite-well-controls">
+                            <div class="control-item">
+                                <label for="well-width">Well Width (L):</label>
+                                <input type="range" id="well-width" min="1" max="10" value="5" step="0.1">
+                                <span class="value-display" id="well-width-val">5.0</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="num-eigenstates">Number of States:</label>
+                                <input type="range" id="num-eigenstates" min="1" max="10" value="5" step="1">
+                                <span class="value-display" id="num-eigenstates-val">5</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="selected-state">Selected State (n):</label>
+                                <input type="range" id="selected-state" min="1" max="5" value="1" step="1">
+                                <span class="value-display" id="selected-state-val">1</span>
+                            </div>
+                        </div>
+
+                        <!-- Finite Well Controls -->
+                        <div class="control-group" id="finite-well-controls" style="display: none;">
+                            <div class="control-item">
+                                <label for="finite-width">Well Width (L):</label>
+                                <input type="range" id="finite-width" min="1" max="10" value="5" step="0.1">
+                                <span class="value-display" id="finite-width-val">5.0</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="well-height">Well Depth (V₀):</label>
+                                <input type="range" id="well-height" min="1" max="100" value="50" step="1">
+                                <span class="value-display" id="well-height-val">50</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="finite-num-states">Number of States:</label>
+                                <input type="range" id="finite-num-states" min="1" max="10" value="5" step="1">
+                                <span class="value-display" id="finite-num-states-val">5</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="finite-selected-state">Selected State (n):</label>
+                                <input type="range" id="finite-selected-state" min="1" max="5" value="1" step="1">
+                                <span class="value-display" id="finite-selected-state-val">1</span>
+                            </div>
+                        </div>
+
+                        <!-- Tunneling Controls -->
+                        <div class="control-group" id="tunneling-controls" style="display: none;">
+                            <div class="control-item">
+                                <label for="barrier-height">Barrier Height (V₀):</label>
+                                <input type="range" id="barrier-height" min="1" max="100" value="30" step="1">
+                                <span class="value-display" id="barrier-height-val">30</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="barrier-width">Barrier Width:</label>
+                                <input type="range" id="barrier-width" min="0.5" max="5" value="2" step="0.1">
+                                <span class="value-display" id="barrier-width-val">2.0</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="particle-energy">Particle Energy (E):</label>
+                                <input type="range" id="particle-energy" min="1" max="50" value="20" step="1">
+                                <span class="value-display" id="particle-energy-val">20</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="packet-sigma">Wave Packet Width (σ):</label>
+                                <input type="range" id="packet-sigma" min="0.1" max="2" value="0.5" step="0.1">
+                                <span class="value-display" id="packet-sigma-val">0.5</span>
+                            </div>
+                            <button class="btn-simulate" onclick="startTunnelingAnimation()">Start Animation</button>
+                            <div class="transmission-info">
+                                <p>Transmission Coefficient: <span id="transmission-coeff">-</span></p>
+                                <p>Reflection Coefficient: <span id="reflection-coeff">-</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Harmonic Oscillator Controls -->
+                        <div class="control-group" id="harmonic-controls" style="display: none;">
+                            <div class="control-item">
+                                <label for="omega">Angular Frequency (ω):</label>
+                                <input type="range" id="omega" min="0.5" max="3" value="1" step="0.1">
+                                <span class="value-display" id="omega-val">1.0</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="mass">Particle Mass (m):</label>
+                                <input type="range" id="mass" min="0.5" max="5" value="1" step="0.1">
+                                <span class="value-display" id="mass-val">1.0</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="harm-num-states">Number of States:</label>
+                                <input type="range" id="harm-num-states" min="1" max="10" value="5" step="1">
+                                <span class="value-display" id="harm-num-states-val">5</span>
+                            </div>
+                            <div class="control-item">
+                                <label for="harm-selected-state">Selected State (n):</label>
+                                <input type="range" id="harm-selected-state" min="0" max="9" value="0" step="1">
+                                <span class="value-display" id="harm-selected-state-val">0</span>
+                            </div>
+                        </div>
+
+                        <!-- General Controls -->
+                        <div class="control-group">
+                            <div class="control-item">
+                                <label for="visualization-mode">Visualization Mode:</label>
+                                <select id="visualization-mode">
+                                    <option value="wavefunction">Wavefunction (ψ)</option>
+                                    <option value="probability">Probability Density (|ψ|²)</option>
+                                    <option value="both">Both</option>
+                                </select>
+                            </div>
+                            <div class="control-item">
+                                <label for="show-potential">Show Potential:</label>
+                                <input type="checkbox" id="show-potential" checked>
+                            </div>
+                            <div class="control-item">
+                                <label for="show-energy">Show Energy Levels:</label>
+                                <input type="checkbox" id="show-energy" checked>
+                            </div>
+                            <button class="btn-reset" onclick="resetSimulation()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Statistics Panel -->
+        <div class="stats-panel">
+            <div class="stat-item">
+                <h4>Ground State Energy (E₁):</h4>
+                <p id="stat-e1">-</p>
+            </div>
+            <div class="stat-item">
+                <h4>Current State Energy:</h4>
+                <p id="stat-energy">-</p>
+            </div>
+            <div class="stat-item">
+                <h4>Expectation Value ⟨x⟩:</h4>
+                <p id="stat-x">-</p>
+            </div>
+            <div class="stat-item">
+                <h4>Expectation Value ⟨p⟩:</h4>
+                <p id="stat-p">-</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with WebGL, Three.js, and Quantum Mechanics • <a href="#about">About</a> • <a href="#docs">Documentation</a></p>
+        </footer>
+    </div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="../src/api-client.js"></script>
+    <script src="../src/visualizations/core.js"></script>
+    <script src="../src/visualizations/infinite-well.js"></script>
+    <script src="../src/visualizations/finite-well.js"></script>
+    <script src="../src/visualizations/tunneling.js"></script>
+    <script src="../src/visualizations/harmonic-oscillator.js"></script>
+    <script src="../src/ui-controls.js"></script>
+    <script src="../src/app.js"></script>
+</body>
+</html>
